@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Goal Calendar Example Page</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
+  <link rel="stylesheet" href="./landingPage/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./landingPage/css/landing-style.css" />
+</head>
+
+<body>
+  <div class="tm-page-container mx-auto">
+    <header class="tm-header text-center">
+      <h1 class="tm-title text-uppercase">Goal Calendar</h1>
+      <p class="tm-primary-color"><i>By Ruikai Fang</i></p>
+      <p class="tm-primary-color"><i>At UofT on Course CSC309</i></p>
+    </header>
+    <section class="tm-section">
+      <nav class="tm-nav">
+        <ul>
+          <li>
+            <a href="index.html"><span class="tm-nav-deco"></span>Intro</a>
+          </li>
+          <li>
+            <a href="gallery.html"><span class="tm-nav-deco"></span>Examples</a>
+          </li>
+          <li class="active">
+            <a href="api.html"><span class="tm-nav-deco"></span>API</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="tm-content-container">
+        <div class="tm-content">
+          <h1 class="tm-page-title">Getting started</h1>
+          <h5 class="mb-4">
+              <li>
+            Add this scripts to &lt;head&gt; in your html file: </li>
+            <pre>
+                <font color="blue">&lt;link type=&quot;text/css&quot; href=&quot;../pub/css/calendar.css&quot; rel=&quot;stylesheet&quot;&gt;</font>
+            </pre>
+        </h5>
+          <h5 class="mb-4"><li>
+            Add these scripts to &lt;body&gt; in your html file: </li>
+            <pre>
+                <font color="blue">&lt;div id=&quot;calendarContainer&quot;&gt;&lt;/div&gt;</font>
+                <font color="blue">&lt;div id=&quot;organizerContainer&quot;&gt;&lt;/div&gt;</font>
+                Where calendarContainer and organizerContainer are the id of your container in html page.
+                <font color="blue">&lt;script src=&quot;../pub/js/calendar.js&quot;&gt;&lt;/script&gt;</font>
+                <font color="blue">&lt;script src=&quot;../pub/js/yourexample.js&quot;&gt;&lt;/script&gt;</font>
+                Where yourexample.js contains the usage of the library.
+            </pre>
+        </h5>
+        <h5><li>
+        For basic usage without any animation, see below code snippet and also see <a href="./js/example.js">code</a>.</li>
+        </h5>
+        <img src="./landingPage/img/code-example1.png" alt="Image" width="788" height="328"/>
+        <p></p>
+        <h5>
+            <li>
+            For basic usage with any animation and goal summary with randomly created dummy goals, see below code snippet and also see <a href="./js/example6.js">code</a>. 
+            </li>
+        </h5>
+          <img src="./landingPage/img/code-example2.png" alt="Image" width="806" height="548"/>
+          <p></p>
+          <h5><li>
+            If you want to see the example with API method to create and add data, see below code snippet and also see <a href="./js/example7.js">code</a>.</li>
+          </h5>
+          <img src="./landingPage/img/code-example3.png" alt="Image" width="794" height="604"/>
+          <!-- <img src="./landingPage/img/code-example3.png" alt="Image" /> -->
+          <p></p>
+          <br>
+          <h2 class="tm-page-title">API Section</h2>
+          <h5><li>
+            Calendar object properties:</li>
+          </h5>
+          <br>
+
+
+          <table>
+            <tbody>
+                <tr>
+                    <th>
+                        Property
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        id
+                    </td>
+                    <td>
+                        String
+                    </td>
+                    <td>
+                        The id of your calendar container in html.
+                    </td>
+                </tr>
+                <tr>
+                     <td>
+                        size
+                    </td>
+                     <td>
+                        String
+                    </td>
+                    <td>
+                        The size of the calendar. Options are small | medium | large.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        label setting
+                    </td>
+                     <td>
+                        Array of String
+                    </td>
+                    <td>
+                        The label settings for the calendar. 
+                        First entry indicates the leftmost day of calendar labels, 
+                        and second entry is the maximum length of the calendar labels.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        colors
+                    </td>
+                     <td>
+                        Array of String
+                    </td>
+                    <td>
+                        The color settings for the calendar. 
+                        First entry is the primary color for calendar,
+                         second is the primary dark color, third is the 
+                         text color, and fourth is the text dark color.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        options
+                    </td>
+                     <td>
+                        Object
+                    </td>
+                    <td>
+                        The option settings for the calendar. (language and placeholder)
+                        Inside object optional keys: days, months and placeholder. 
+                        Each key refer to an array of String to represent
+                        day labels and month labels. Placeholder refers to a placeholder html code.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        goalsObj
+                    </td>
+                     <td>
+                        Empty array
+                    </td>
+                    <td>
+                        The default goals collections, later input goal complete objects will be stored here.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+
+        <h5><li>
+            Calendar object's methods:
+            </li>
+          </h5>
+          <br>
+          <table>
+            <tbody>
+                <tr>
+                    <th>
+                        Methods
+                    </th>
+
+                    <th>
+                        Description
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        changeColor
+                    </td>
+
+                    <td>
+                        Input a new array of color strings to change the calendar's color setting.
+                    </td>
+                </tr>
+                <tr>
+                     <td>
+                        changeSize
+                    </td>
+
+                    <td>
+                        Input a new size string to change the calendar's size.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        changeLableSetting
+                    </td>
+                    <td>
+                        Input a new array of label strings to change the calendar's label Setting.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        createGoal
+                    </td>
+
+                    <td>
+                        Input goal current amount, goal target amount, and goal detail text to create a goal info object. Return the goal info object.
+                    </td>
+                </tr>
+                <tr>
+                     <td>
+                        addGoalToObjs
+                    </td>
+
+                    <td>
+                        Input a Date object and goal info object to create complete goal object. Return the complete goal object.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        addData
+                    </td>
+                    <td>
+                        Input the complete goal object and add it to the calendars goal collections. Return the calendar's goal collections.
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <br>
+          <h5><li>
+            Organizer object properties:</li>
+          </h5>
+          <br>
+
+
+          <table>
+            <tbody>
+                <tr>
+                    <th>
+                        Property
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        id
+                    </td>
+                    <td>
+                        String
+                    </td>
+                    <td>
+                        The id of your organizer container in html.
+                    </td>
+                </tr>
+                <tr>
+                     <td>
+                        calendar
+                    </td>
+                     <td>
+                        Object
+                    </td>
+                    <td>
+                        The calendar object instance you want to connect with.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        data
+                    </td>
+                     <td>
+                        Object
+                    </td>
+                    <td>
+                        The goal data you want to add to your calendar.
+                        Use Calendar's createGoal, addGoalToObjs, addData 
+                        methods to create the goal data.
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <br>
+        <h5><li>
+            To create goals data for adding to Organizer object always use the combination of calendar's methods createGoal,addGoalToObjs and addData,
+            see the example above and also see <a href="./js/example7.js">example codes</a>.</li>
+        </h5>
+          
+        <h5><li>
+            To create Calendar object, see the basic example above and also see example codes in <a href="gallery.html">gallery</a></li>
+          </h5>
+        <h5><li>
+            All usage example codes for this library are also in <a href="gallery.html">gallery</a></li>
+          </h5>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+
+</html>
