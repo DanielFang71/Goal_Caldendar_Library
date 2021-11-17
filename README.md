@@ -1,0 +1,2 @@
+# Goal_Caldendar_Library
+This library provides a full calendar that has a water-filling animation as motivation in each day cell, as well as a summary block to show the goal details on a specific day.  The main purpose of this library is to provide developers with a valuable complete calendar module they can use and provide them additional animation, placeholder, etc such that developers can make use of and create their own goal calendar.
