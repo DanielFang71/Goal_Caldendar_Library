@@ -133,6 +133,7 @@
           <h1>goalcalendar – Demo</h1>
           <p class="sub">
             A small, dependency-free calendar library. This page is hosted on GitHub Pages.
+            Usage docs: <a href="./usage.html">usage</a>
           </p>
         </div>
         <div class="links">
@@ -188,7 +189,7 @@
 
           <div class="hint">
             Tip: try overriding CSS variables on the container (e.g. <code>--gcl-days-bg</code>,
-            <code>--gcl-cell-border-color</code>).
+            <code>--gcl-cell-border-color</code>). Click any day cell to change the selected date.
           </div>
         </div>
 
@@ -233,15 +234,19 @@
       function seedData() {
         if (!cal || typeof cal.setData !== 'function') return
 
-        // Simple sample data for the current month
+        // Simple sample data for the current month.
+        // NOTE: setData expects DayItem: { text, complete, goal }.
         const now = new Date()
         const y = now.getFullYear()
         const m = String(now.getMonth() + 1).padStart(2, '0')
 
         cal.setData({
-          [`${y}-${m}-01`]: [{ title: 'Kickoff', done: false }],
-          [`${y}-${m}-05`]: [{ title: 'Gym', done: true }],
-          [`${y}-${m}-12`]: [{ title: 'Study', done: false }, { title: 'Read', done: true }],
+          [`${y}-${m}-01`]: [{ text: 'Kickoff', complete: 2, goal: 3 }],
+          [`${y}-${m}-05`]: [{ text: 'Gym', complete: 1, goal: 1 }],
+          [`${y}-${m}-12`]: [
+            { text: 'Study', complete: 0, goal: 2 },
+            { text: 'Read', complete: 1, goal: 2 },
+          ],
         })
       }
 
