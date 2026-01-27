@@ -1,55 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goal Calendar – GitHub Pages Demo</title>
+    <style>
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        margin: 0;
+        padding: 24px;
+        background: #0b1220;
+        color: #e2e8f0;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      a {
+        color: #93c5fd;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        padding: 16px;
+        margin-top: 16px;
+      }
+      ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+      }
+      li {
+        margin: 8px 0;
+      }
+      .muted {
+        color: rgba(226, 232, 240, 0.7);
+        font-size: 13px;
+      }
+      code {
+        background: rgba(148, 163, 184, 0.18);
+        padding: 2px 6px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Goal Calendar – Demo</h1>
+      <p class="muted">
+        This GitHub Pages site serves the original static demos from <code>pub/</code>.
+        (The newer docs demo lives under <a href="./docs/">/docs</a>.)
+      </p>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Goal Calendar Example Page</title>
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
-  <link rel="stylesheet" href="./landingPage/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="./landingPage/css/landing-style.css" />
-</head>
-
-<body>
-  <div class="tm-page-container mx-auto">
-    <header class="tm-header text-center">
-      <h1 class="tm-title text-uppercase">Goal Calendar</h1>
-      <p class="tm-primary-color"><i>By Ruikai Fang</i></p>
-      <p class="tm-primary-color"><i>At UofT on Course CSC309</i></p>
-    </header>
-    <section class="tm-section">
-      <nav class="tm-nav">
+      <div class="card">
+        <strong>Recommended demo pages</strong>
         <ul>
-          <li class="active">
-            <a href="index.html"><span class="tm-nav-deco"></span>Intro</a>
-          </li>
-          <li>
-            <a href="gallery.html"><span class="tm-nav-deco"></span>Examples</a>
-          </li>
-          <li>
-            <a href="api.html"><span class="tm-nav-deco"></span>API</a>
-          </li>
+          <li><a href="./example6.html">Example 6</a> (water-fill indicator demo)</li>
+          <li><a href="./api.html">API</a></li>
+          <li><a href="./gallery.html">Gallery</a></li>
         </ul>
-      </nav>
-      <div class="tm-content-container">
-        <div class="tm-content">
-          <h2 class="tm-page-title">Introduction to Goal Calendar library</h2>
-          <p class="mb-4">
-            This library provides a full calendar that has a water-filling animation 
-            as motivation in each day cell, as well as a summary block to show the goal details on a specific day.
-          </p>
-          <p>
-            The main purpose of this library is to provide developers with a valuable complete calendar module they 
-            can use and provide them additional animation, placeholder, etc such that developers can make use of and 
-            create their own goal calendar.
-          </p>
-        </div>
       </div>
-    </section>
 
-  </div>
-</body>
-
+      <div class="card">
+        <strong>All examples</strong>
+        <ul>
+          <li><a href="./example.html">Example 1</a></li>
+          <li><a href="./example2.html">Example 2</a></li>
+          <li><a href="./example3.html">Example 3</a></li>
+          <li><a href="./example4.html">Example 4</a></li>
+          <li><a href="./example5.html">Example 5</a></li>
+          <li><a href="./example6.html">Example 6</a></li>
+          <li><a href="./example7.html">Example 7</a></li>
+          <li><a href="./example8.html">Example 8</a></li>
+          <li><a href="./example9.html">Example 9</a></li>
+        </ul>
+      </div>
+    </div>
+  </body>
 </html>
