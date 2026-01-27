@@ -14,6 +14,7 @@ import type {
   DayItem,
   WeekdayName,
 } from './types'
+import { applyCalendarA11y } from './a11y'
 
 const DEFAULT_MONTHS = [
   'January',
@@ -236,6 +237,10 @@ export class Calendar {
     ;(this as any).setOnClickListener('days-blocks')
     ;(this as any).setOnClickListener('month-slider')
     ;(this as any).setOnClickListener('year-slider')
+
+    // Optional a11y baseline: ARIA roles + roving tabindex + arrow-key focus.
+    // This is intentionally dependency-free and designed not to change click behavior.
+    ;(this as any).applyA11y?.()
   }
 }
 
@@ -247,6 +252,12 @@ Object.assign(Calendar.prototype, legacyProto)
 export default Calendar
 
 // ---- P2 additions: progress-driven fill helpers ----
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+;(Calendar.prototype as any).applyA11y = function applyA11y() {
+  applyCalendarA11y(this.id)
+}
+
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ;(Calendar.prototype as any).setFillFromRatio = function setFillFromRatio(ratio: number) {
