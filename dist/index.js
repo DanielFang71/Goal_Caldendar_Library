@@ -136,11 +136,12 @@ var Calendar = class {
       _colors = mapped.colors;
       _options = mapped.options;
       theme = mapped.theme;
-      const root = document.getElementById(id);
-      if (root) {
-        root.style.setProperty("--goalcal-fill-color", theme.fillColor);
-        root.style.setProperty("--goalcal-fill-speed", theme.fillSpeed);
-      }
+    }
+    const container = document.getElementById(id);
+    if (!container) throw new Error(`Calendar container not found: ${id}`);
+    if (typeof a !== "string") {
+      container.style.setProperty("--goalcal-fill-color", theme.fillColor);
+      container.style.setProperty("--goalcal-fill-speed", theme.fillSpeed);
     }
     this.id = id;
     this.size = _size;
