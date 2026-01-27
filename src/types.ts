@@ -27,6 +27,17 @@ export type CalendarTheme = {
   fillSpeed?: string
 }
 
+export type DayItem = {
+  /** Display text shown in organizer list */
+  text: string
+  /** Progress complete value */
+  complete?: number
+  /** Progress goal value */
+  goal?: number
+}
+
+export type CalendarData = Record<string, DayItem[]>
+
 export type CalendarOptions = {
   /** DOM element id of the container */
   containerId: string

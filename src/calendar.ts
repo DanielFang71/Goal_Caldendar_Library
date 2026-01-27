@@ -6,7 +6,14 @@
  * - Keep behavior as close as possible for compatibility.
  */
 
-import type { CalendarOptions, CalendarTheme, CalendarThemeName, WeekdayName } from './types'
+import type {
+  CalendarData,
+  CalendarOptions,
+  CalendarTheme,
+  CalendarThemeName,
+  DayItem,
+  WeekdayName,
+} from './types'
 
 const DEFAULT_MONTHS = [
   'January',
@@ -88,6 +95,8 @@ function buildLegacyArgsFromOptions(opts: CalendarOptions) {
 // --- Legacy implementation pasted & minimally adapted ---
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+let warnedLegacyConstructor = false
+
 export class Calendar {
   id: string
   size: any
@@ -133,6 +142,14 @@ export class Calendar {
     let theme = normalizeTheme(undefined)
 
     if (typeof a === 'string') {
+      if (!warnedLegacyConstructor) {
+        warnedLegacyConstructor = true
+        // eslint-disable-next-line no-console
+        console.warn(
+          '[goalcalendar] Legacy positional constructor is deprecated. Prefer new Calendar({ containerId, ...options }).'
+        )
+      }
+
       id = a
       _size = size
       _labelSettings = labelSettings
@@ -224,9 +241,8 @@ export class Calendar {
 
 // Inject the legacy prototype methods by requiring the JS implementation.
 // We reuse the existing proven code path in P2 and will refactor further later.
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const legacy = require('./legacy-calendar-proto')
-Object.assign(Calendar.prototype, legacy)
+import legacyProto from './legacy-calendar-proto'
+Object.assign(Calendar.prototype, legacyProto)
 
 export default Calendar
 
@@ -252,4 +268,42 @@ export default Calendar
 
   root.style.setProperty('--goalcal-fill-start', `${base}px`)
   root.style.setProperty('--goalcal-fill-end', `${Math.max(0, base - wiggle)}px`)
+}
+
+// ---- P3 additions: data-driven API (industrial-friendly) ----
+
+function parseIsoDateKey(key: string): Date {
+  // Expect YYYY-MM-DD
+  const m = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/.exec(key)
+  if (!m) throw new Error(`Invalid date key: ${key} (expected YYYY-MM-DD)`) 
+  const y = Number(m[1])
+  const mo = Number(m[2])
+  const d = Number(m[3])
+  return new Date(y, mo - 1, d)
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+;(Calendar.prototype as any).setData = function setData(data: CalendarData) {
+  // Reset goals
+  this.goalsObj = []
+
+  const createGoal = (this as any).createGoal as (c: number, g: number, t: string) => any
+  const addGoalToObjs = (this as any).addGoalToObjs as (date: Date, goal: any) => any
+  const addData = (this as any).addData as (objs: any[]) => any
+
+  const keys = Object.keys(data)
+  for (const key of keys) {
+    const items: DayItem[] = data[key] || []
+    const date = parseIsoDateKey(key)
+
+    for (const item of items) {
+      const complete = item.complete ?? 0
+      const goal = item.goal ?? 0
+      const text = item.text
+      addGoalToObjs.call(this, date, createGoal.call(this, complete, goal, text))
+    }
+  }
+
+  this.data = addData.call(this, this.goalsObj)
+  ;(this as any).update()
 }
