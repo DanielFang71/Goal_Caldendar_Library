@@ -35,7 +35,7 @@
   "files": [
     "dist",
     "README.md",
-    "docs"
+    "LICENSE"
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
@@ -45,7 +45,8 @@
     "test:watch": "vitest",
     "lint": "eslint .",
     "format": "prettier -w .",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "npm run build && npm test"
   },
   "dependencies": {
     "express": "^4.17.1"
@@ -59,5 +60,8 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.54.0",
     "vitest": "^4.0.18"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
