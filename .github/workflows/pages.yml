@@ -33,7 +33,16 @@ jobs:
         run: |
           rm -rf _site
           mkdir -p _site
-          cp -R docs/* _site/
+
+          # Use the legacy static demo pages (previously served via express).
+          # This guarantees click behavior and the original water-fill visuals.
+          cp -R pub/* _site/
+
+          # Also include the new docs site under /docs for reference.
+          mkdir -p _site/docs
+          cp -R docs/* _site/docs/
+
+          # Provide the built package assets as well (for module-based demos).
           mkdir -p _site/assets/goalcalendar
           cp dist/index.mjs dist/index.js dist/index.d.ts dist/style.css dist/modern.css _site/assets/goalcalendar/
 
