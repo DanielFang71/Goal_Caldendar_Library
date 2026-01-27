@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>goalcalendar – Demo</title>
+
+    <!-- Load CSS from the published package output (built in dist/) -->
+    <link rel="stylesheet" href="./assets/goalcalendar/style.css" />
+    <link rel="stylesheet" href="./assets/goalcalendar/modern.css" />
+
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        margin: 0;
+        padding: 24px;
+        background: #f8fafc;
+        color: #0f172a;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0;
+      }
+      .sub {
+        margin: 6px 0 0;
+        color: #475569;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      .card {
+        background: white;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      @media (min-width: 980px) {
+        .grid {
+          grid-template-columns: 340px 1fr;
+        }
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        color: #334155;
+        margin-bottom: 6px;
+      }
+      select,
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        background: #fff;
+        font-size: 14px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .btn {
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        background: #0f172a;
+        color: #fff;
+        font-weight: 600;
+      }
+      .btn.secondary {
+        background: #fff;
+        color: #0f172a;
+      }
+      .btns {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .hint {
+        margin-top: 10px;
+        font-size: 12px;
+        color: #64748b;
+      }
+      .calendarHost {
+        /* opt-in to the modern look */
+      }
+      .calendarHost.goalcal-theme-modern {
+        /* class is read by modern.css */
+      }
+      .links a {
+        color: #0f172a;
+      }
+      .links {
+        font-size: 13px;
+        color: #334155;
+      }
+      code {
+        background: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div>
+          <h1>goalcalendar – Demo</h1>
+          <p class="sub">
+            A small, dependency-free calendar library. This page is hosted on GitHub Pages.
+          </p>
+        </div>
+        <div class="links">
+          <div><a href="https://github.com/DanielFang71/Goal_Caldendar_Library" target="_blank" rel="noreferrer">GitHub Repo</a></div>
+          <div><a href="https://www.npmjs.com/package/goalcalendar" target="_blank" rel="noreferrer">NPM</a></div>
+        </div>
+      </header>
+
+      <div class="grid">
+        <div class="card">
+          <div class="row">
+            <div>
+              <label for="size">Size</label>
+              <select id="size">
+                <option value="small">small</option>
+                <option value="medium">medium</option>
+                <option value="large" selected>large</option>
+              </select>
+            </div>
+            <div>
+              <label for="startOfWeek">Start of week</label>
+              <select id="startOfWeek">
+                <option value="Monday" selected>Monday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="height: 12px"></div>
+
+          <div class="row">
+            <div>
+              <label for="labelLength">Label length</label>
+              <select id="labelLength">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+              </select>
+            </div>
+            <div>
+              <label for="theme">Theme</label>
+              <select id="theme">
+                <option value="classic">classic</option>
+                <option value="modern" selected>modern</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="btns">
+            <button class="btn" id="rebuild">Rebuild</button>
+            <button class="btn secondary" id="seed">Seed data</button>
+          </div>
+
+          <div class="hint">
+            Tip: try overriding CSS variables on the container (e.g. <code>--gcl-days-bg</code>,
+            <code>--gcl-cell-border-color</code>).
+          </div>
+        </div>
+
+        <div class="card">
+          <div id="calendarContainer" class="calendarHost"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load library JS from dist output -->
+    <script type="module">
+      import Calendar from './assets/goalcalendar/index.mjs'
+
+      const container = document.getElementById('calendarContainer')
+      let cal
+
+      function clear() {
+        container.innerHTML = ''
+      }
+
+      function build() {
+        clear()
+        container.id = 'demo-cal'
+
+        const size = document.getElementById('size').value
+        const startOfWeek = document.getElementById('startOfWeek').value
+        const labelLength = Number(document.getElementById('labelLength').value)
+        const theme = document.getElementById('theme').value
+
+        // modern.css uses this class for default overrides
+        container.classList.toggle('goalcal-theme-modern', theme === 'modern')
+
+        cal = new Calendar({
+          containerId: container.id,
+          size,
+          startOfWeek,
+          labelLength,
+          theme,
+        })
+      }
+
+      function seedData() {
+        if (!cal || typeof cal.setData !== 'function') return
+
+        // Simple sample data for the current month
+        const now = new Date()
+        const y = now.getFullYear()
+        const m = String(now.getMonth() + 1).padStart(2, '0')
+
+        cal.setData({
+          [`${y}-${m}-01`]: [{ title: 'Kickoff', done: false }],
+          [`${y}-${m}-05`]: [{ title: 'Gym', done: true }],
+          [`${y}-${m}-12`]: [{ title: 'Study', done: false }, { title: 'Read', done: true }],
+        })
+      }
+
+      document.getElementById('rebuild').addEventListener('click', build)
+      document.getElementById('seed').addEventListener('click', seedData)
+
+      build()
+    </script>
+  </body>
+</html>
