@@ -13,6 +13,7 @@ export default [
       'server.js',
       'src/calendar.js',
       'src/legacy-calendar-proto.js',
+      'src/legacy-calendar-proto.ts',
     ],
   },
   {
