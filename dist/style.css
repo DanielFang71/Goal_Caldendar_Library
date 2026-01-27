@@ -1,4 +1,17 @@
 .cjslib-calendar {
+  /* Theme variables (override via CSS on your container) */
+  --gcl-font-family: "Satellite", "Roboto", sans-serif;
+  --gcl-calendar-border-color: rgba(21, 21, 21, 0.12);
+  --gcl-calendar-shadow-color: rgba(21, 21, 21, 0.21);
+  --gcl-days-bg: #f6f6f6;
+  --gcl-cell-border-color: rgba(21, 21, 21, 0.12);
+  --gcl-cell-hover-bg: rgba(21, 21, 21, 0.012);
+  --gcl-cell-hover-shadow-color: rgba(21, 21, 21, 0.21);
+  --gcl-cell-diluted-bg: rgba(21, 21, 21, 0.021);
+  --gcl-cell-diluted-shadow-color: rgba(21, 21, 21, 0.12);
+  --gcl-day-text: rgba(21, 21, 21, 0.84);
+  --gcl-day-text-diluted: rgba(21, 21, 21, 0.73);
+
   width: 800px;
   height: 800px;
   display: -webkit-box;
@@ -8,13 +21,13 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  font-family: "Satellite", "Roboto", sans-serif;
-  border: 1px solid rgba(21, 21, 21, 0.12);
+  font-family: var(--gcl-font-family);
+  border: 1px solid var(--gcl-calendar-border-color);
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
   transform: scale(1);
-  -webkit-box-shadow: 0px 0px 4px rgba(21, 21, 21, 0.21);
-  box-shadow: 0px 0px 4px rgba(21, 21, 21, 0.21);
+  -webkit-box-shadow: 0px 0px 4px var(--gcl-calendar-shadow-color);
+  box-shadow: 0px 0px 4px var(--gcl-calendar-shadow-color);
   -ms-user-select: none;
   user-select: none;
   -moz-user-select: none;
@@ -171,7 +184,7 @@
 }
 
 .cjslib-days {
-  background-color: #f6f6f6;
+  background-color: var(--gcl-days-bg);
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -214,8 +227,8 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  border-bottom: 1px solid rgba(21, 21, 21, 0.12);
-  border-right: 1px solid rgba(21, 21, 21, 0.12);
+  border-bottom: 1px solid var(--gcl-cell-border-color);
+  border-right: 1px solid var(--gcl-cell-border-color);
   -webkit-transition: box-shadow 200ms ease-in-out;
   -webkit-transition: -webkit-box-shadow 200ms ease-in-out;
   transition: -webkit-box-shadow 200ms ease-in-out;
@@ -265,9 +278,9 @@
 }
 
 .cjslib-day:hover {
-  background-color: rgba(21, 21, 21, 0.012);
-  -webkit-box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
-  box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
+  background-color: var(--gcl-cell-hover-bg);
+  -webkit-box-shadow: inset 0px 0px 4px var(--gcl-cell-hover-shadow-color);
+  box-shadow: inset 0px 0px 4px var(--gcl-cell-hover-shadow-color);
 }
 
 .cjslib-day-radios {
@@ -275,9 +288,9 @@
 }
 
 .cjslib-day-radios:checked + .cjslib-day {
-  background-color: rgba(21, 21, 21, 0.012);
-  -webkit-box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
-  box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
+  background-color: var(--gcl-cell-hover-bg);
+  -webkit-box-shadow: inset 0px 0px 4px var(--gcl-cell-hover-shadow-color);
+  box-shadow: inset 0px 0px 4px var(--gcl-cell-hover-shadow-color);
 }
 
 .cjslib-day > .cjslib-day-num {
@@ -286,7 +299,7 @@
   height: -moz-fit-content;
   height: fit-content;
   font-size: 14px;
-  color: rgba(21, 21, 21, 0.84);
+  color: var(--gcl-day-text);
 }
 .cjslib-day.cjslib-day-today > .cjslib-day-num {
   padding-bottom: 3px;
@@ -315,15 +328,15 @@
 }
 
 .cjslib-day.cjslib-day-diluted {
-  background-color: rgba(21, 21, 21, 0.021);
-  -webkit-box-shadow: inset 0px 0px 1px rgba(21, 21, 21, 0.12);
-  box-shadow: inset 0px 0px 1px rgba(21, 21, 21, 0.12);
+  background-color: var(--gcl-cell-diluted-bg);
+  -webkit-box-shadow: inset 0px 0px 1px var(--gcl-cell-diluted-shadow-color);
+  box-shadow: inset 0px 0px 1px var(--gcl-cell-diluted-shadow-color);
 }
 
 .cjslib-day.cjslib-day-diluted > .cjslib-day-num {
   width: auto;
   font-size: 10px;
-  color: rgba(21, 21, 21, 0.73);
+  color: var(--gcl-day-text-diluted);
 }
 
 .cjslib-day-indicator:empty,
