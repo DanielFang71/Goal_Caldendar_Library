@@ -1,0 +1,24 @@
+/* Optional modern theme overrides.
+ * Consumers can opt-in by adding `goalcal-theme-modern` to the container element.
+ */
+
+.goalcal-theme-modern .cjslib-calendar {
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.goalcal-theme-modern .cjslib-days {
+  background-color: #f8fafc;
+}
+
+.goalcal-theme-modern .cjslib-day {
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  border-right: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.goalcal-theme-modern .cjslib-day:hover {
+  background-color: rgba(17, 24, 39, 0.02);
+  box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.06);
+}
