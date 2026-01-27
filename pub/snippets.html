@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoalCalendar Snippets</title>
+  <link rel="stylesheet" href="/pub/landingPage/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/pub/css/calendar.css" />
+  <style>
+    body { padding: 24px; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+    .card { border: 1px solid rgba(0,0,0,.08); border-radius: 12px; padding: 16px; }
+    pre { background: #0b1020; color: #e5e7eb; padding: 12px; border-radius: 10px; overflow: auto; }
+    button { border: 1px solid rgba(0,0,0,.15); border-radius: 10px; padding: 6px 10px; background: white; }
+  </style>
+</head>
+
+<body>
+  <h1>GoalCalendar — Copy/Paste Snippets</h1>
+  <p>These are minimal examples intended to be copied into your project.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>1) Minimal (classic)</h3>
+      <div id="cal1"></div>
+      <pre><code id="code1"></code></pre>
+      <button onclick="copy('code1')">Copy</button>
+    </div>
+
+    <div class="card">
+      <h3>2) Modern theme + progress-driven fill</h3>
+      <div id="cal2" class="goalcal-theme-modern"></div>
+      <pre><code id="code2"></code></pre>
+      <button onclick="copy('code2')">Copy</button>
+    </div>
+  </div>
+
+  <script src="/pub/js/calendar.js"></script>
+  <script>
+    function copy(id) {
+      const txt = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(txt);
+    }
+
+    const code1 = `import { Calendar } from 'goalcalendar';\nimport 'goalcalendar/style.css';\n\nnew Calendar({\n  containerId: 'calendarContainer',\n});`;
+
+    const code2 = `import { Calendar } from 'goalcalendar';\nimport 'goalcalendar/style.css';\nimport 'goalcalendar/modern.css';\n\nconst cal = new Calendar({\n  containerId: 'calendarContainer',\n  theme: 'modern',\n});\n// Example progress: 10/12 => 83%\ncal.setFillFromRatio(10/12);`;
+
+    document.getElementById('code1').innerText = code1;
+    document.getElementById('code2').innerText = code2;
+
+    // Demo render on this page (uses legacy global Calendar from /pub/js/calendar.js)
+    new Calendar('cal1','medium',['Monday',3],['#4CAF50','#4CAF50','#FFFFFF','#FFFFFF']);
+    const cal2 = new Calendar('cal2','medium',['Monday',3],['#111827','#0B1220','#F9FAFB','#F9FAFB']);
+    // fake progress
+    if (cal2.setFillFromRatio) cal2.setFillFromRatio(10/12);
+  </script>
+</body>
+</html>

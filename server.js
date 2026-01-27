@@ -10,11 +10,19 @@ const express = require("express");
 const app = express();
 
 const path = require("path");
+// Serve the demo site at `/` (legacy)
 app.use(express.static(path.join(__dirname, "/pub")));
+// Also serve the same files under `/pub/*` because the legacy example pages
+// reference assets like `../pub/js/calendar.js`.
+app.use("/pub", express.static(path.join(__dirname, "/pub")));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/pub/index.html"));
 });
+
+app.get('/snippets.html', (req, res) => {
+  res.sendFile(path.join(__dirname + '/pub/snippets.html'))
+})
 
 // legacy demo routes
 for (let i = 1; i <= 9; i++) {

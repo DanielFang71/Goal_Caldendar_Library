@@ -29,25 +29,28 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./style.css": "./src/style.css"
+    "./style.css": "./dist/style.css",
+    "./modern.css": "./dist/modern.css"
   },
   "files": [
     "dist",
-    "src",
     "README.md",
     "docs"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --out-dir dist --clean",
+    "build": "node scripts/build.mjs",
     "demo": "node server.js",
     "start": "node server.js",
-    "test": "echo \"TODO: add tests in P2\" && exit 0"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "jsdom": "^27.4.0",
     "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
   }
 }
