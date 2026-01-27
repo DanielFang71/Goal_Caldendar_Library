@@ -77,6 +77,20 @@ const cal = new Calendar({
 cal.setFillFromRatio(10 / 12)
 ```
 
+### Data API (`setData`)
+
+```ts
+import { Calendar } from 'goalcalendar'
+import 'goalcalendar/style.css'
+
+const cal = new Calendar({ containerId: 'calendarContainer' })
+
+cal.setData({
+  '2026-01-01': [{ text: 'Gym', complete: 1, goal: 1 }],
+  '2026-01-02': [{ text: 'Read', complete: 1, goal: 2 }],
+})
+```
+
 ### Water-fill customization (CSS variables)
 
 You can customize the animation via CSS variables set on the calendar container:
@@ -84,6 +98,11 @@ You can customize the animation via CSS variables set on the calendar container:
 - `--goalcal-fill-speed`
 - `--goalcal-fill-start`
 - `--goalcal-fill-end`
+
+### Theme customization (CSS variables)
+
+The library also exposes `--gcl-*` variables on `.cjslib-calendar` to make theming easier
+(background, borders, text colors, hover styles, etc.).
 
 ---
 
