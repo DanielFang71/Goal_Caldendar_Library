@@ -149,11 +149,17 @@ export class Calendar {
 
       // expose theme vars for CSS-based animation
       // set CSS variables on the root container for easy theming
-      const root = document.getElementById(id)
-      if (root) {
-        root.style.setProperty('--goalcal-fill-color', theme.fillColor)
-        root.style.setProperty('--goalcal-fill-speed', theme.fillSpeed)
-      }
+      // theme vars applied after we validate container exists
+    }
+
+    const container = document.getElementById(id)
+    if (!container) throw new Error(`Calendar container not found: ${id}`)
+
+    // Apply theme vars for CSS-based animation.
+    // For legacy constructor users, these vars can still be set later via CSS.
+    if (typeof a !== 'string') {
+      container.style.setProperty('--goalcal-fill-color', theme.fillColor)
+      container.style.setProperty('--goalcal-fill-speed', theme.fillSpeed)
     }
 
     this.id = id
