@@ -1,5 +1,8 @@
 # Goal Calendar Library (CSC309 project)
 
+[![CI](https://github.com/DanielFang71/Goal_Caldendar_Library/actions/workflows/ci.yml/badge.svg)](https://github.com/DanielFang71/Goal_Caldendar_Library/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/goalcalendar)](https://www.npmjs.com/package/goalcalendar)
+
 A UofT CSC309-era JavaScript calendar component with a **water-filling animation** inside day cells to visualize/encourage goal progress.
 
 This repo contains:

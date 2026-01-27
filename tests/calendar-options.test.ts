@@ -137,3 +137,43 @@ describe('Calendar options constructor', () => {
     )
     expect(cal.id).toBe('cal')
   })
+
+  it('setData accepts YYYY-MM-DD map and updates goalsObj', () => {
+    const dom = new JSDOM('<div id="cal"></div>')
+    // @ts-expect-error test environment
+    global.document = dom.window.document
+
+    const cal = new Calendar({ containerId: 'cal' })
+    // @ts-expect-error dynamic method
+    cal.setData({
+      '2026-01-01': [{ text: 'A', complete: 1, goal: 2 }],
+      '2026-01-02': [{ text: 'B' }],
+    })
+
+    // legacy shape: [{date, goal:{complete,goal,text}}]
+    // @ts-expect-error legacy data
+    expect(cal.goalsObj.length).toBe(2)
+  })
+
+  it('setData treats undefined day list as empty (covers branch)', () => {
+    const dom = new JSDOM('<div id="cal"></div>')
+    // @ts-expect-error test environment
+    global.document = dom.window.document
+
+    const cal = new Calendar({ containerId: 'cal' })
+    // @ts-expect-error dynamic method
+    cal.setData({ '2026-01-03': undefined } as any)
+
+    // @ts-expect-error legacy data
+    expect(cal.goalsObj.length).toBe(0)
+  })
+
+  it('setData throws on invalid date key', () => {
+    const dom = new JSDOM('<div id="cal"></div>')
+    // @ts-expect-error test environment
+    global.document = dom.window.document
+
+    const cal = new Calendar({ containerId: 'cal' })
+    // @ts-expect-error dynamic method
+    expect(() => cal.setData({ '01-01-2026': [{ text: 'A' }] })).toThrow(/YYYY-MM-DD/)
+  })
