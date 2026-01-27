@@ -2,7 +2,7 @@ name: Auto-merge
 
 on:
   pull_request:
-    types: [labeled, synchronize, opened, reopened]
+    types: [opened, reopened, synchronize, ready_for_review]
 
 permissions:
   contents: write
@@ -10,8 +10,8 @@ permissions:
 
 jobs:
   enable:
-    # Only for PRs explicitly labeled "automerge"
-    if: contains(github.event.pull_request.labels.*.name, 'automerge')
+    # Enable GitHub auto-merge for every PR.
+    # PR will merge automatically once required checks and branch protections pass.
     runs-on: ubuntu-latest
     steps:
       - name: Enable auto-merge (squash)
