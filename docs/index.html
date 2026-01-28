@@ -186,11 +186,29 @@
             <button class="btn" id="rebuild">Rebuild</button>
             <button class="btn secondary" id="seed">Seed data</button>
             <button class="btn secondary" id="clear">Clear</button>
+            <button class="btn secondary" id="applyJson">Apply JSON</button>
           </div>
 
+          <div style="height: 12px"></div>
+
+          <label for="json">Data (JSON)</label>
+          <textarea
+            id="json"
+            rows="10"
+            style="
+              width: 100%;
+              box-sizing: border-box;
+              padding: 10px 12px;
+              border-radius: 10px;
+              border: 1px solid rgba(15, 23, 42, 0.12);
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+                'Courier New', monospace;
+              font-size: 12px;
+            "
+          ></textarea>
+
           <div class="hint">
-            Tip: try overriding CSS variables on the container (e.g. <code>--gcl-days-bg</code>,
-            <code>--gcl-cell-border-color</code>). Click any day cell to change the selected date.
+            Tip: DayItem is <code>{ text, complete, goal }</code>. Click any day cell to change the selected date.
           </div>
         </div>
 
@@ -242,7 +260,7 @@
         const m = String(now.getMonth() + 1).padStart(2, '0')
         const d = String(now.getDate()).padStart(2, '0')
 
-        cal.setData({
+        const data = {
           [`${y}-${m}-${d}`]: [
             { text: 'Today: Gym', complete: 1, goal: 1 },
             { text: 'Today: Read', complete: 1, goal: 2 },
@@ -253,19 +271,44 @@
             { text: 'Study', complete: 0, goal: 2 },
             { text: 'Read', complete: 1, goal: 2 },
           ],
-        })
+        }
+
+        cal.setData(data)
+        setJson(data)
       }
 
       function clearData() {
         if (!cal || typeof cal.setData !== 'function') return
         cal.setData({})
+        setJson({})
+      }
+
+      function setJson(obj) {
+        const el = document.getElementById('json')
+        if (!el) return
+        el.value = JSON.stringify(obj, null, 2)
+      }
+
+      function applyJson() {
+        if (!cal || typeof cal.setData !== 'function') return
+        const el = document.getElementById('json')
+        if (!el) return
+
+        try {
+          const parsed = JSON.parse(el.value || '{}')
+          cal.setData(parsed)
+        } catch (e) {
+          alert('Invalid JSON: ' + e.message)
+        }
       }
 
       document.getElementById('rebuild').addEventListener('click', build)
       document.getElementById('seed').addEventListener('click', seedData)
       document.getElementById('clear').addEventListener('click', clearData)
+      document.getElementById('applyJson').addEventListener('click', applyJson)
 
       build()
+      setJson({})
     </script>
   </body>
 </html>
