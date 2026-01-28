@@ -5,6 +5,19 @@
 
 A UofT CSC309-era JavaScript calendar component with a **water-filling animation** inside day cells to visualize/encourage goal progress.
 
+## Live demos
+
+- Legacy demo (original static pages): https://danielfang71.github.io/Goal_Caldendar_Library/
+- Modern docs/demo: https://danielfang71.github.io/Goal_Caldendar_Library/docs/
+- Modern usage (npm API): https://danielfang71.github.io/Goal_Caldendar_Library/docs/usage.html
+
+## Legacy vs modern API
+
+- **Modern (recommended, npm)**: `new Calendar({ containerId, ... })` + `setData()`
+- **Legacy (demo pages)**: `new Calendar(id, size, labelSettings, colors, options)` + `createGoal/addGoalToObjs/addData`
+
+> The legacy API remains for compatibility with the original CSC309 project pages.
+
 This repo contains:
 - an **npm package** (`goalcalendar`) built into `dist/`
 - a **demo site** served by a tiny Express server (`npm start`)
