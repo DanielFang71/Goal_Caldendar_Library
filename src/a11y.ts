@@ -72,12 +72,44 @@ export function applyCalendarA11y(calendarId: string) {
     })
   }
 
-  // Arrow key navigation for focus (does not automatically change selected date)
+  function setCellAriaLabels() {
+    // Best-effort labels based on current visible month/year text.
+    const monthText = monthEl?.textContent?.trim() ?? ''
+    const yearText = yearEl?.textContent?.trim() ?? ''
+
+    for (const cell of cells) {
+      const num = (cell.querySelector('.cjslib-day-num') as HTMLElement | null)?.textContent?.trim()
+      if (!num) continue
+
+      const suffix = cell.classList.contains('cjslib-day-diluted') ? ' (adjacent month)' : ''
+      const aria = [num, monthText, yearText].filter(Boolean).join(' ') + suffix
+      cell.setAttribute('aria-label', aria)
+    }
+  }
+
+  setCellAriaLabels()
+
+  // Arrow key navigation for focus.
+  // Enter/Space activates the focused day (selects the radio + triggers click behavior).
   daysContainer.addEventListener('keydown', (e) => {
     const key = (e as KeyboardEvent).key
     const activeEl = document.activeElement
     const currentIndex = cells.findIndex((c) => c === activeEl)
     if (currentIndex < 0) return
+
+    if (key === 'Enter' || key === ' ') {
+      e.preventDefault()
+      const radio = radios[currentIndex]
+      if (radio) {
+        radio.checked = true
+        radio.dispatchEvent(new Event('change', { bubbles: true }))
+      }
+      // Trigger legacy onclick flow (changeDateTo + callbacks)
+      cells[currentIndex]?.click()
+      syncTabIndexAndSelection()
+      setCellAriaLabels()
+      return
+    }
 
     let nextIndex: number | null = null
     if (key === 'ArrowRight') nextIndex = currentIndex + 1

@@ -99,17 +99,12 @@
         display: flex;
         gap: 10px;
         margin-top: 10px;
+        flex-wrap: wrap;
       }
       .hint {
         margin-top: 10px;
         font-size: 12px;
         color: #64748b;
-      }
-      .calendarHost {
-        /* opt-in to the modern look */
-      }
-      .calendarHost.goalcal-theme-modern {
-        /* class is read by modern.css */
       }
       .links a {
         color: #0f172a;
@@ -123,6 +118,16 @@
         padding: 2px 6px;
         border-radius: 6px;
       }
+      textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+          'Courier New', monospace;
+        font-size: 12px;
+      }
     </style>
   </head>
 
@@ -132,13 +137,22 @@
         <div>
           <h1>goalcalendar – Demo</h1>
           <p class="sub">
-            A small, dependency-free calendar library. This page is hosted on GitHub Pages.
-            Usage docs: <a href="./usage.html">usage</a>
+            A small, dependency-free calendar library. This page is hosted on GitHub Pages. Usage
+            docs: <a href="./usage.html">usage</a>
           </p>
         </div>
         <div class="links">
-          <div><a href="https://github.com/DanielFang71/Goal_Caldendar_Library" target="_blank" rel="noreferrer">GitHub Repo</a></div>
-          <div><a href="https://www.npmjs.com/package/goalcalendar" target="_blank" rel="noreferrer">NPM</a></div>
+          <div>
+            <a href="https://github.com/DanielFang71/Goal_Caldendar_Library" target="_blank" rel="noreferrer"
+              >GitHub Repo</a
+            >
+          </div>
+          <div>
+            <a href="https://www.npmjs.com/package/goalcalendar" target="_blank" rel="noreferrer">NPM</a>
+          </div>
+          <div>
+            <a href="./compatibility.html">Compatibility</a>
+          </div>
         </div>
       </header>
 
@@ -192,23 +206,11 @@
           <div style="height: 12px"></div>
 
           <label for="json">Data (JSON)</label>
-          <textarea
-            id="json"
-            rows="10"
-            style="
-              width: 100%;
-              box-sizing: border-box;
-              padding: 10px 12px;
-              border-radius: 10px;
-              border: 1px solid rgba(15, 23, 42, 0.12);
-              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-                'Courier New', monospace;
-              font-size: 12px;
-            "
-          ></textarea>
+          <textarea id="json" rows="10"></textarea>
 
           <div class="hint">
-            Tip: DayItem is <code>{ text, complete, goal }</code>. Click any day cell to change the selected date.
+            Tip: DayItem is <code>{ text, complete, goal }</code>. Click any day cell to change the
+            selected date.
           </div>
         </div>
 
@@ -218,19 +220,24 @@
       </div>
     </div>
 
-    <!-- Load library JS from dist output -->
     <script type="module">
       import Calendar from './assets/goalcalendar/index.mjs'
 
       const container = document.getElementById('calendarContainer')
+      const jsonEl = document.getElementById('json')
       let cal
 
-      function clear() {
+      function clearContainer() {
         container.innerHTML = ''
       }
 
+      function setJson(obj) {
+        if (!jsonEl) return
+        jsonEl.value = JSON.stringify(obj, null, 2)
+      }
+
       function build() {
-        clear()
+        clearContainer()
         container.id = 'demo-cal'
 
         const size = document.getElementById('size').value
@@ -238,7 +245,6 @@
         const labelLength = Number(document.getElementById('labelLength').value)
         const theme = document.getElementById('theme').value
 
-        // modern.css uses this class for default overrides
         container.classList.toggle('goalcal-theme-modern', theme === 'modern')
 
         cal = new Calendar({
@@ -253,8 +259,6 @@
       function seedData() {
         if (!cal || typeof cal.setData !== 'function') return
 
-        // Simple sample data for the current month.
-        // NOTE: setData expects DayItem: { text, complete, goal }.
         const now = new Date()
         const y = now.getFullYear()
         const m = String(now.getMonth() + 1).padStart(2, '0')
@@ -283,19 +287,10 @@
         setJson({})
       }
 
-      function setJson(obj) {
-        const el = document.getElementById('json')
-        if (!el) return
-        el.value = JSON.stringify(obj, null, 2)
-      }
-
       function applyJson() {
         if (!cal || typeof cal.setData !== 'function') return
-        const el = document.getElementById('json')
-        if (!el) return
-
         try {
-          const parsed = JSON.parse(el.value || '{}')
+          const parsed = JSON.parse(jsonEl.value || '{}')
           cal.setData(parsed)
         } catch (e) {
           alert('Invalid JSON: ' + e.message)
