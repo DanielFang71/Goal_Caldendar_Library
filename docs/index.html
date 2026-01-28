@@ -185,6 +185,7 @@
           <div class="btns">
             <button class="btn" id="rebuild">Rebuild</button>
             <button class="btn secondary" id="seed">Seed data</button>
+            <button class="btn secondary" id="clear">Clear</button>
           </div>
 
           <div class="hint">
@@ -239,8 +240,13 @@
         const now = new Date()
         const y = now.getFullYear()
         const m = String(now.getMonth() + 1).padStart(2, '0')
+        const d = String(now.getDate()).padStart(2, '0')
 
         cal.setData({
+          [`${y}-${m}-${d}`]: [
+            { text: 'Today: Gym', complete: 1, goal: 1 },
+            { text: 'Today: Read', complete: 1, goal: 2 },
+          ],
           [`${y}-${m}-01`]: [{ text: 'Kickoff', complete: 2, goal: 3 }],
           [`${y}-${m}-05`]: [{ text: 'Gym', complete: 1, goal: 1 }],
           [`${y}-${m}-12`]: [
@@ -250,8 +256,14 @@
         })
       }
 
+      function clearData() {
+        if (!cal || typeof cal.setData !== 'function') return
+        cal.setData({})
+      }
+
       document.getElementById('rebuild').addEventListener('click', build)
       document.getElementById('seed').addEventListener('click', seedData)
+      document.getElementById('clear').addEventListener('click', clearData)
 
       build()
     </script>
