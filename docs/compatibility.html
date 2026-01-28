@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>goalcalendar – Compatibility</title>
+    <style>
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        margin: 0;
+        padding: 24px;
+        background: #f8fafc;
+        color: #0f172a;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      pre {
+        background: #0b1220;
+        color: #e2e8f0;
+        padding: 14px;
+        border-radius: 12px;
+        overflow: auto;
+      }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+      }
+      a {
+        color: #0f172a;
+      }
+      .muted {
+        color: #475569;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p>
+        <a href="./index.html">← back to docs demo</a> · <a href="./usage.html">usage</a>
+      </p>
+      <h1>Compatibility</h1>
+      <p class="muted">Notes about bundlers, SSR, and runtime environment.</p>
+
+      <h2>Browser / DOM required</h2>
+      <p>
+        <code>goalcalendar</code> is a DOM-based library. It uses <code>document</code> and directly
+        manipulates elements. It is intended for browser usage.
+      </p>
+
+      <h2>SSR (Next.js / Remix / Nuxt)</h2>
+      <p>
+        Do <b>not</b> instantiate <code>new Calendar(...)</code> during server-side rendering.
+        Create it only on the client (e.g. in <code>useEffect</code>).
+      </p>
+
+      <pre><code>import { useEffect } from 'react'
+import { Calendar } from 'goalcalendar'
+import 'goalcalendar/style.css'
+
+export default function Page() {
+  useEffect(() =&gt; {
+    new Calendar({ containerId: 'calendarContainer' })
+  }, [])
+
+  return &lt;div id="calendarContainer" /&gt;
+}</code></pre>
+
+      <h2>Bundlers</h2>
+      <ul>
+        <li>Vite: works (ESM import)</li>
+        <li>Webpack: works (ESM/CJS depending on config)</li>
+        <li>Node: not supported as a UI runtime (unless you provide a DOM like jsdom)</li>
+      </ul>
+
+      <h2>CSS</h2>
+      <p>
+        Remember to import <code>goalcalendar/style.css</code> (and optionally
+        <code>goalcalendar/modern.css</code>) from your app.
+      </p>
+    </div>
+  </body>
+</html>
