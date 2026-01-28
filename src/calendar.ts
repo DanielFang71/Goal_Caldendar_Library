@@ -118,6 +118,18 @@ export class Calendar {
   today: Date
   history: any[]
 
+  /** Apply dependency-free accessibility baseline (ARIA grid + keyboard focus). */
+  applyA11y: () => void
+
+  /** Set water-fill animation level by ratio (0..1). */
+  setFillFromRatio: (ratio: number) => void
+
+  /**
+   * Set calendar data by day key (YYYY-MM-DD).
+   * This is the recommended modern data entry point.
+   */
+  setData: (data: CalendarData) => void
+
   // NEW constructor: options object
   constructor(options: CalendarOptions)
   // Legacy constructor: positional args
